@@ -33,7 +33,10 @@ router.post("/public", async (req, res) => {
 
   try {
     const slot = await Slot.findById(slotId);
-    if (!slot) return res.status(404).json({ msg: "Slot not available" });
+    // if (!slot) return res.status(404).json({ msg: "Slot not available" });
+    if (!slot || slot.is_booked) return res.status(404).json({ msg: "Slot not available" });
+
+    await Slot.findByIdAndUpdate(slotId, { is_booked: true });
 
     const alreadyBooked = await Booking.findOne({ slotId, email });
     if (alreadyBooked)

@@ -35,7 +35,7 @@ const sendBookingEmail = async({name, email, phone, slot })=>{
         const transporter = nodemailer.createTransport({
         host: "smtp.resend.com",
         port: 465,
-        secure: false, // true for 465, false for other ports
+        secure: true, // true for 465, false for other ports
         auth: {
             user: "resend",
             pass: process.env.RESEND_API_KEY,

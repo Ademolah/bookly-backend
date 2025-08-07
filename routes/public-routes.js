@@ -6,7 +6,8 @@ const Slot = require("../models/Slots");
 // GET public slots by owner ID
 router.get("/slots/:slug", async (req, res) => {
   try {
-    const slots = await Slot.find({ owner: req.params.ownerId });
+    // const slots = await Slot.find({ ownerIdId: req.params.ownerId });
+    const slots = await Slot.find({ ownerId: req.params.ownerId, is_booked: false }).sort({ date: 1, time: 1 });
     res.json({ slots });
   } catch (err) {
     console.error(err);
