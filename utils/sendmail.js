@@ -8,7 +8,7 @@ try {
     secure: true, // true for 465, false for other ports
     auth: {
         user: "resend",
-        pass: "re_imy4utkw_JbXZzMiDBv3gquToxVPubNpF",
+        pass: "xyz",
     },
 });
 
