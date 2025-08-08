@@ -8,10 +8,7 @@ const sendBookingEmail = async({name, email, phone, slot })=>{
         
     console.log(owner.email);
         
-    if(!owner || owner.email){
-        console.log('Could not find owner for this slug');
-        return
-    }
+    
     try {
 
         // Create a test account or replace with real credentials.
