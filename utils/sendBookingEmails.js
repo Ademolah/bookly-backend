@@ -30,8 +30,9 @@ const sendBookingEmail = async({name, email, phone, slot })=>{
         subject: "New Booking Received",
         text: "Hello world?", // plain‑text body
         html: `
-            <h2>New Booking on Bookly</h2>
-            <p><strong>Name:</strong> ${name}</p>
+            <h1>New Booking on Bookly</h1>
+            <h2>Hello ${owner.fullName}, you have a booked apponitment schedule</h2>
+            <p><strong>From:</strong> ${name}</p>
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Phone:</strong> ${phone}</p>
             <p><strong>Date:</strong> ${slot.date}</p>
