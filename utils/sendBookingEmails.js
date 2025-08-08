@@ -1,15 +1,18 @@
 
 const nodemailer = require("nodemailer");
 const User = require('../models/Users')
+const Slot = require('../models/Slots')
 
 const sendBookingEmail = async({name, email, phone, slot })=>{
+    const owner = await User.findById(slot.userId)
+        
+    console.log(owner.email);
+        
+    if(!owner || owner.email){
+        console.log('Could not find owner for this slug');
+        return
+    }
     try {
-
-        const owner = await User.findById(slot.userId)
-        if(!owner || owner.email){
-            console.log('Could not find owner for this slug');
-            return
-        }
 
         // Create a test account or replace with real credentials.
         const transporter = nodemailer.createTransport({
