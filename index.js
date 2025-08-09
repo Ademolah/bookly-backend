@@ -12,10 +12,27 @@ const app = express()
 
 connectDb()
 
+const allowedOrigins = [
+  "https://bookly-frontend-fawn.vercel.app",
+  "https://www.booklyio.com",
+  "https://booklyio.com" // ✅ no www version too
+];
+
 app.use(cors({
-  origin: [process.env.CLIENT_URL],
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed for this origin"));
+    }
+  },
   credentials: true
 }));
+
+// app.use(cors({
+//   origin: [process.env.CLIENT_URL],
+//   credentials: true
+// }));
 
 
 app.use(express.json())
