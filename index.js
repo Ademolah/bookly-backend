@@ -1,4 +1,5 @@
 require('dotenv').config()
+require('./utils/cronJobs')
 const express = require('express')
 const cors = require('cors')
 const connectDb = require('./db/db')
@@ -29,11 +30,6 @@ app.use(cors({
   },
   credentials: true
 }));
-
-// app.use(cors({
-//   origin: [process.env.CLIENT_URL],
-//   credentials: true
-// }));
 
 
 app.use(express.json())

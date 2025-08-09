@@ -7,7 +7,12 @@ const bookingSchema = new mongoose.Schema(
     slotId: { type: mongoose.Schema.Types.ObjectId, ref: "Slot", required: true },
     name: { type: String, required: true }, // person booking
     email: { type: String, required: true },
-    phone: { type: String, required: true }
+    phone: { type: String, required: true },
+    reminderSent: {
+      type: Boolean,
+      default: false
+    }
+
   },
   { timestamps: true }
 );
