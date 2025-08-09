@@ -14,7 +14,7 @@ connectDb()
 
 const allowedOrigins = [
   "https://bookly-frontend-fawn.vercel.app",
-  // "https://www.booklyio.com",
+  "https://www.booklyio.com",
   "https://booklyio.com", // ✅ no www version too
   "http://localhost:3000"
 ];
