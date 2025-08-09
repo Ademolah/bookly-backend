@@ -13,7 +13,7 @@ const app = express()
 connectDb()
 
 app.use(cors({
-  origin: [process.env.CLIENT_URL],
+  origin: "https://www.booklyio.com/",
   credentials: true
 }));
 
