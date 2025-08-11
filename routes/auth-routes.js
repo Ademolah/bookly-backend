@@ -68,7 +68,7 @@ router.post("/register", async (req, res) => {
 
     console.log(`${fullName} registered successfully!`);
     
-    await sendWelcomeEmail({fullName, email})
+    // await sendWelcomeEmail({fullName, email})
 
     const token = jwt.sign({ id: newUser._id }, JWT_SECRET, { expiresIn: "7d" });
 
