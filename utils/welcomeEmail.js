@@ -26,7 +26,7 @@ const sendWelcomeEmail = async(name, email)=>{
         // Wrap in an async IIFE so we can use await.
         (async () => {
         const info = await transporter.sendMail({
-            from: '"Bookly" <hi@hqbinary.com>',
+            from: '"Bookly" <hi@booklyio.com>',
             to: email,
             subject: "Welcome to Bookly 😃 !",
            
