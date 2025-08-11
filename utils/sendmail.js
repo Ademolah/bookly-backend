@@ -8,7 +8,7 @@ try {
     secure: true, // true for 465, false for other ports
     auth: {
         user: "resend",
-        pass: "xyz",
+        pass:  process.env.RESEND_API_KEY,
     },
 });
 
