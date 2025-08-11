@@ -19,14 +19,14 @@ router.get("/slots/:slug", async (req, res) => {
 
     // 2️⃣ Get only their available slots
     const slots = await Slot.find({
-      userId: owner._id,
+      userId: req.params.ownerId,
       is_booked: false
     });
 
     res.json({ slots });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: "Server error" });
+    res.status(500).json({ msg: "Server error", err });
   }
 });
 
