@@ -2,6 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const Slot = require("../models/Slots");
+const User = require('../models/Users')
 
 // GET public slots by owner ID
 router.get("/slots/:slug", async (req, res) => {
@@ -19,7 +20,7 @@ router.get("/slots/:slug", async (req, res) => {
 
     // 2️⃣ Get only their available slots
     const slots = await Slot.find({
-      userId: req.params.ownerId,
+      userId: owner._id,
       is_booked: false
     });
 
