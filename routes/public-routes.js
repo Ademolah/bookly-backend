@@ -19,7 +19,7 @@ router.get("/slots/:slug", async (req, res) => {
 
     // 2️⃣ Get only their available slots
     const slots = await Slot.find({
-      ownerId: req.params.ownerId,
+      userId: owner._id,
       is_booked: false
     });
 
