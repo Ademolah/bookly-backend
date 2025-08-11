@@ -50,6 +50,8 @@ router.post("/", verifyUser, async (req, res) => {
     if (exists) return res.status(400).json({ msg: "Slot already exists" });
 
     const newSlot = await Slot.create({ userId: req.user.id, date, time });
+    await newSlot.save()
+
     res.status(201).json(newSlot);
   } catch (err) {
     res.status(500).json({ msg: "Failed to create slot", err });
