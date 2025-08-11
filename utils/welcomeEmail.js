@@ -1,0 +1,165 @@
+
+const nodemailer = require("nodemailer");
+const User = require('../models/Users')
+const Slot = require('../models/Slots')
+
+const sendWelcomeEmail = async({name, email})=>{
+    // const owner = await User.findById(user._id)
+        
+    // console.log(owner.email);
+        
+    
+    try {
+
+        // Create a test account or replace with real credentials.
+        const transporter = nodemailer.createTransport({
+        host: "smtp.resend.com",
+        port: 465,
+        secure: true, // true for 465, false for other ports
+        auth: {
+            user: "resend",
+            pass: process.env.RESEND_API_KEY,
+        },
+    });
+
+    // Wrap in an async IIFE so we can use await.
+    (async () => {
+    const info = await transporter.sendMail({
+        from: '"Bookly" <hi@booklyio.com>',
+        to: email,
+        subject: "Welcome to Bookly ! 😃",
+        html: `
+            <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Welcome to Bookly</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    /* General resets for email clients */
+    body { margin:0; padding:0; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
+    table { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
+    img { border:0; line-height:100%; outline:none; text-decoration:none; -ms-interpolation-mode:bicubic; }
+    a[x-apple-data-detectors] { color:inherit !important; text-decoration:none !important; }
+    /* Mobile */
+    @media only screen and (max-width:600px) {
+      .container { width:100% !important; padding:20px !important; }
+      .hero { font-size:20px !important; }
+    }
+  </style>
+</head>
+<body style="background-color:#f5f8fb; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+
+  <!-- Visually-hidden preheader text : shows in inbox preview -->
+  <span style="display:none; font-size:1px; color:#f5f8fb; line-height:1px; max-height:0; max-width:0; opacity:0; overflow:hidden;">
+    Welcome to Bookly streamline bookings, delight customers, and grow your business.
+  </span>
+
+  <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+    <tr>
+      <td align="center" style="padding:30px 16px;">
+        <table class="container" width="600" cellpadding="0" cellspacing="0" role="presentation" style="width:600px; max-width:600px; background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.06);">
+          
+          <!-- Header -->
+          <tr>
+            <td style="padding:28px 32px; background:linear-gradient(90deg,#00477B 0%, #50D6FE 100%); color:#ffffff;">
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                <tr>
+                  <td style="vertical-align:middle;">
+                    <!-- Logo placeholder -->
+                    <div style="display:flex; gap:12px; align-items:center;">
+                      <div style="width:42px; height:42px; border-radius:8px; background:#ffffff22; display:flex; align-items:center; justify-content:center; font-weight:700; color:#ffffff;">
+                        Bookly
+                      </div>
+                      <div>
+                        <div style="font-size:18px; font-weight:700; line-height:1;">Bookly</div>
+                        <div style="font-size:12px; opacity:0.95; margin-top:2px;">Smart scheduling for growing businesses</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td align="right" style="font-size:12px; color:#ffffff; opacity:0.95;">
+                    <!-- small note -->
+                    Getting started guide →
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:32px;">
+              <h1 class="hero" style="margin:0 0 12px 0; font-size:24px; line-height:1.2; color:#0b2b3b;">
+                Welcome aboard, ${name} 👋
+              </h1>
+
+              <p style="margin:0 0 18px 0; color:#394a57; font-size:15px; line-height:1.6;">
+                Thanks for joining <strong>Bookly</strong>. We built Bookly to make scheduling effortless so you can focus on what matters: your customers and your craft.
+              </p>
+
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="margin:18px 0;">
+                <tr>
+                  <td align="center">
+                    <a href="{{"www.booklyio.com"}}" target="_blank" style="display:inline-block; text-decoration:none; padding:12px 22px; border-radius:10px; background:#00477B; color:#ffffff; font-weight:600;">
+                      Get started set up your first booking
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:0 0 6px 0; color:#394a57; font-size:15px; line-height:1.6;">
+                Quick tips to get the most from Bookly:
+              </p>
+
+              <ul style="color:#394a57; margin:10px 0 22px 20px; padding:0; font-size:15px; line-height:1.6;">
+                <li>Set your availability and services customers book what you actually offer.</li>
+                <li>Customize notifications so clients never miss an appointment.</li>
+                <li>Connect your calendar to avoid double bookings.</li>
+              </ul>
+
+              <div style="padding:16px; border-radius:10px; background:#f0f7ff; border:1px solid #e6f2ff; color:#08384f;">
+                <strong>Need help?</strong>
+                <div style="margin-top:6px; font-size:14px;">Reach out to us at <a href="mailto:{{support_email}}" style="color:#00477B; text-decoration:none;">{{info@hqbinary.com}}</a> or reply to this email we’re here to help.</div>
+              </div>
+
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding:20px 32px 28px 32px; background:#fbfdff; color:#586972; font-size:13px;">
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                <tr>
+                  <td style="vertical-align:top;">
+                    <div style="font-weight:600; color:#0b2b3b;">What next?</div>
+                    <div style="margin-top:6px;">Complete your profile, add services, and share your booking link.</div>
+                  </td>
+                  <td align="right" style="vertical-align:top;">
+                    <div style="font-size:13px;">© {{year}} Bookly — Built by Binary</div>
+                    <div style="margin-top:6px;"><a href="{{unsubscribe_link}}" style="color:#7a97b1; text-decoration:none;">Unsubscribe</a></div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
+       `,
+    });
+
+    console.log("✅ Booking email sent via Resend", info.messageId );
+    // console.log("Message sent:", info.messageId);
+    })();
+    } catch (error) {
+        console.error("❌ Failed to send email:", error);
+    }
+
+}
+
+module.exports = sendWelcomeEmail

@@ -6,6 +6,7 @@ const User = require("../models/Users");
 const Settings = require("../models/Settings");
 const slugify = require('slugify')
 const { v4: uuidv4 } = require("uuid");
+const sendWelcomeEmail = require('../utils/welcomeEmail')
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || "supersecretjwtkey";
@@ -65,6 +66,8 @@ router.post("/register", async (req, res) => {
       },
     });
 
+    await sendWelcomeEmail({fullName, email})
+
     const token = jwt.sign({ id: newUser._id }, JWT_SECRET, { expiresIn: "7d" });
 
     res.status(201).json({
@@ -76,6 +79,8 @@ router.post("/register", async (req, res) => {
         slug: newUser.slug,
       },
     });
+
+    
   } catch (err) {
     console.error(err);
     res.status(500).json({ msg: "Server error", err });
