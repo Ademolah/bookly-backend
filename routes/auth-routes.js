@@ -8,6 +8,8 @@ const slugify = require('slugify')
 const { v4: uuidv4 } = require("uuid");
 const sendWelcomeEmail = require('../utils/welcomeEmail')
 
+
+
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || "supersecretjwtkey";
 
@@ -69,6 +71,7 @@ router.post("/register", async (req, res) => {
     console.log(`${fullName} registered successfully!`);
     
     await sendWelcomeEmail(fullName, email)
+    
 
     const token = jwt.sign({ id: newUser._id }, JWT_SECRET, { expiresIn: "7d" });
 
